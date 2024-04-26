@@ -1,0 +1,69 @@
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.util.Random;
+
+public class Main extends Application 
+{ 
+
+  private int attemptsLeft = 3; //glabā atlikušos mēģinājumus
+  private int randomNumber;  //glabā nejauši ģenerēto skaitli
+  
+  @Override
+  public void start(Stage primaryStage) {
+    
+    Label label1, label2; 
+    TextField textField;
+    Button btnOk, btnNewGame;
+    VBox vbox;
+    Scene scene;
+
+    label1 = new Label("Input number (1-10):");
+    textField = new TextField();
+    label2 = new Label("You have 3 attempts to guess a number");
+    textField.setMaxWidth(250);
+
+    
+    btnOk = new Button("OK"); 
+    btnNewGame = new Button("New Game");
+
+    btnOk.setOnAction(new EventHandler<ActionEvent>() {
+      @Override public void handle(ActionEvent e) {
+        textField.setText("OK");
+      }
+    });
+
+    btnNewGame.setOnAction(new EventHandler<ActionEvent>() {
+      @Override public void handle(ActionEvent e) {
+        textField.setText("New Game");
+        textField.clear(); //izdzēš tekstu no teksta lauka
+        attemptsLeft = 3; //atjauno mēģinājumu skaitu
+
+        labe12.setText("you have 3 attempts to guess a number");
+
+        Random random = new Random();
+        randomNumber = random.nextInt(10) + 1; //ģenerē jaunu nejaušu skaitli
+      }
+    });
+
+    vbox = new VBox(label1, textField, label2, btnOk, btnNewGame);
+    vbox.setSpacing(20);
+    vbox.setAlignment(Pos.CENTER);
+    scene = new Scene(vbox, 300, 300);
+    
+    primaryStage.setTitle("Guess a number");
+    primaryStage.setScene(scene);
+    primaryStage.show();
+  } 
+    
+  public static void main(String[] args) {
+    launch(args);
+  }
+} 
